@@ -1,0 +1,94 @@
+package com.codechobo;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class DiceServlet
+ */
+@WebServlet("/DiceServlet")
+public class DiceServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DiceServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int x = (int)(Math.random()*6 + 1);
+		int y = (int)(Math.random()*6 + 1);
+		PrintWriter out = res.getWriter();
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("</head>");
+		out.println("<body>");
+//		out.println(x);
+		out.println("<img src='img/dice"+x+".jpg' alt='image'>");
+		out.println("<img src='img/dice"+y+".jpg' alt='image'>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+//		doGet(req, res);
+		String user1 = req.getParameter("name1");
+		String user2 = req.getParameter("name2");
+		int a = (int)(Math.random()*6 + 1);
+		int b = (int)(Math.random()*6 + 1);
+		int c = (int)(Math.random()*6 + 1);
+		int d = (int)(Math.random()*6 + 1);
+		PrintWriter out = res.getWriter();
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<meta charset=\"UTF-8\"/>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<h1>"+user1+"</h1>");
+		out.println("<img src='img/dice"+a+".jpg' alt='image'>");
+		out.println("<img src='img/dice"+b+".jpg' alt='image'>");
+		out.println("<br>");
+		out.println("User1("+user1+"): " + (int)(a + b));
+		out.println("<br><br>");
+		out.println("<h1>"+user2+"</h1>");
+		out.println("<img src='img/dice"+c+".jpg' alt='image'>");
+		out.println("<img src='img/dice"+d+".jpg' alt='image'>");
+		out.println("<br>");
+		out.println("User2("+(req.getParameter("name2")+"): " + (int)(c + d)));
+		out.println("<hr>");
+		int user1_value = a+b;
+		int user2_value = c+d;
+		String result = "";
+		if (user1_value > user2_value) {
+			result = user1;
+		} else if(user1_value < user2_value) {
+			result = user2;
+		} else result = "비김";
+//		String result = user1_value>user2_value? "User1" : "User2";
+		out.println("<h1>Winner is " + result + "</h1>");
+		out.println("<hr>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+}
